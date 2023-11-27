@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
+
     public static void start() {
         Scanner scanner = new Scanner(System.in);
         String command = scanner.nextLine();
@@ -21,12 +22,13 @@ public class Menu {
             addStudent(0);
         } else if (command.equals("list")) {
             if (Student.getStudentList().isEmpty()) {
-                System.out.println("No students found.");
+                System.out.println("No students found");
             } else {
                 System.out.println("Students:");
                 Student.listAllStudents();
             }
-
+        } else if (command.equals("add points")) {
+            System.out.println("Enter an id and points or 'back' to return");
         } else {
             System.out.println("Unknown command!");
             start();
@@ -72,6 +74,36 @@ public class Menu {
         } else {
             System.out.println("Incorrect credentials.");
             addStudent(studentsAdded);
+        }
+    }
+
+    public static void addPoints() {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        if (input.equals("back")) {
+            start();
+        }
+        RegexChecker regexChecker = new RegexChecker();
+        if (regexChecker.checkAddPointsInput(input)) {
+            String[] arr = input.split(" ");
+            ArrayList<Integer> list = new ArrayList<>();
+            for (String string : arr) {
+                list.add(Integer.parseInt(string));
+            }
+
+
+            int id = list.get(0);
+            int javaScore = list.get(1);
+            int dsaScore = list.get(2);
+            int databasesScore = list.get(3);
+            int springScore = list.get(4);
+
+            JavaCourse.setGradeById(id, javaScore);
+            DSACourse.setGradeById(id, dsaScore);
+            DatabasesCourse.setGradeById(id, databasesScore);
+            SpringCourse.setGradeById(id, springScore);
+
+            System.out.println("Points updated");
         }
     }
 

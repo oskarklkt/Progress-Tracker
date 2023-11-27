@@ -23,6 +23,10 @@ public class Student {
         nextId++;
     }
 
+    public static int getNextId() {
+        return nextId;
+    }
+
     public int getStudentId() {
         return studentId;
     }
