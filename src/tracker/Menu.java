@@ -20,7 +20,13 @@ public class Menu {
             System.out.println("Enter student credentials or 'back' to return:");
             addStudent(0);
         } else if (command.equals("list")) {
-            Student.listAllStudents();
+            if (Student.getStudentList().isEmpty()) {
+                System.out.println("No students found.");
+            } else {
+                System.out.println("Students:");
+                Student.listAllStudents();
+            }
+
         } else {
             System.out.println("Unknown command!");
             start();

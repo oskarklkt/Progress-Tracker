@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 public class Student {
-    private static int nextId;
+    private static int nextId = 1;
     private static HashMap<Integer, String> usedEmails = new HashMap<>();
     private static ArrayList<Student> studentList = new ArrayList<>();
     private final int studentId;
@@ -18,7 +18,7 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        studentList.add(new Student(firstName, lastName, email));
+        studentList.add(this);
         usedEmails.put(studentId, email);
         nextId++;
     }
