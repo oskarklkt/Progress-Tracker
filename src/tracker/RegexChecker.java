@@ -25,8 +25,20 @@ public class RegexChecker {
     public boolean checkAddPointsInput(String input) {
         ArrayList<Integer> inputList = new ArrayList<>();
         try {
+            String s = input.split(" ")[0];
+            int i = Integer.parseInt(s);
+        } catch (Exception e) {
+            System.out.printf("No student is found for id=%s", input.split(" ")[0]);
+        }
+        try {
             for (String s : input.split(" ")) {
-                inputList.add(Integer.parseInt(s));
+                int i = Integer.parseInt(s);
+                if (i < 0) {
+                    System.out.println("Incorrect points format");
+                    Menu.addPoints();
+                    return false;
+                }
+                inputList.add(i);
             }
         } catch (Exception e) {
             System.out.println("Incorrect points format");
@@ -39,12 +51,11 @@ public class RegexChecker {
             return false;
         }
         if (inputList.get(0) < Student.getNextId() && inputList.get(0) >= 1) {
-            System.out.println("Points updated");
+            return true;
         } else {
             System.out.printf("No student is found for id=%s\n", inputList.get(0));
             Menu.addPoints();
             return false;
         }
-        return true;
     }
 }
