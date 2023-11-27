@@ -1,10 +1,11 @@
 package tracker;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class Student {
-    private static int id;
+    private static int nextId;
     private static HashMap<Integer, String> usedEmails = new HashMap<>();
     private static ArrayList<Student> studentList = new ArrayList<>();
     private final int studentId;
@@ -13,13 +14,13 @@ public class Student {
     private final String email;
 
     public Student(String firstName, String lastName, String email) {
-        this.studentId = id;
+        this.studentId = nextId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         studentList.add(new Student(firstName, lastName, email));
         usedEmails.put(studentId, email);
-        id++;
+        nextId++;
     }
 
     public int getStudentId() {
@@ -44,5 +45,16 @@ public class Student {
 
     public static ArrayList<Student> getStudentList() {
         return studentList;
+    }
+
+    public void printId() {
+        System.out.println(studentId);
+    }
+
+
+    public static void listAllStudents() {
+        studentList.stream()
+                .sorted(Comparator.comparing(Student::getStudentId))
+                .forEach(Student::printId);
     }
 }

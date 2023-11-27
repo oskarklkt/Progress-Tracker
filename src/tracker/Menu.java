@@ -19,6 +19,8 @@ public class Menu {
         } else if (command.equals("add students")) {
             System.out.println("Enter student credentials or 'back' to return:");
             addStudent(0);
+        } else if (command.equals("list")) {
+            Student.listAllStudents();
         } else {
             System.out.println("Unknown command!");
             start();
