@@ -2,14 +2,33 @@ package tracker;
 
 import java.util.HashMap;
 
-public class SpringCourse {
-    static HashMap<Integer, Integer> studentsGradesMap = new HashMap<>();
+public class SpringCourse extends Course{
+    private HashMap<Integer, Integer> studentsGradesMap;
 
-    public static int getGradeById(int id) {
+    private static SpringCourse instance;
+
+    private SpringCourse() {
+        this.studentsGradesMap = new HashMap<>();
+    }
+
+    public static SpringCourse getInstance() {
+        if (instance == null) {
+            instance = new SpringCourse();
+        }
+        return instance;
+    }
+
+    @Override
+    public int getGradeById(int id) {
         return studentsGradesMap.get(id);
     }
 
-    public static void setGradeById(int id, int grade) {
+    @Override
+    public void setGradeById(int id, int grade) {
         studentsGradesMap.put(id, grade);
+    }
+
+    public HashMap<Integer, Integer> getStudentsGradesMap() {
+        return studentsGradesMap;
     }
 }

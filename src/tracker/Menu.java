@@ -1,9 +1,17 @@
 package tracker;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
+
+    public static JavaCourse javaCourse = JavaCourse.getInstance();
+    public static SpringCourse springCourse = SpringCourse.getInstance();
+    public static DatabasesCourse databasesCourse = DatabasesCourse.getInstance();
+    public static DSACourse dsaCourse = DSACourse.getInstance();
+
+    static ArrayList<Course> courseArrayList = new ArrayList<>(Arrays.asList(javaCourse, springCourse, databasesCourse, dsaCourse));
 
     public static void start() {
         Scanner scanner = new Scanner(System.in);
@@ -69,7 +77,7 @@ public class Menu {
                 addStudent(studentsAdded);
             } else {
                 System.out.println("The student has been added.");
-                Student student = new Student(firstname, lastName.toString(), email);
+                new Student(firstname, lastName.toString(), email);
                 studentsAdded++;
                 addStudent(studentsAdded);
             }
@@ -102,31 +110,24 @@ public class Menu {
             int dsaScore = list.get(2);
             int databasesScore = list.get(3);
             int springScore = list.get(4);
+            int score;
 
-            if (JavaCourse.studentsGradesMap.containsKey(id)) {
-                JavaCourse.setGradeById(id, JavaCourse.getGradeById(id) + javaScore);
-            } else {
-                JavaCourse.setGradeById(id, javaScore);
+            for (Course course : courseArrayList) {
+                if (course instanceof JavaCourse) {
+                    score = javaScore;
+                } else if (course instanceof SpringCourse) {
+                    score = springScore;
+                } else if (course instanceof DSACourse) {
+                    score = dsaScore;
+                } else {
+                    score = databasesScore;
+                }
+                if (course.getStudentsGradesMap().containsKey(id)) {
+                    course.setGradeById(id, course.getGradeById(id) + score);
+                } else {
+                    course.setGradeById(id, score);
+                }
             }
-
-            if (DSACourse.studentsGradesMap.containsKey(id)) {
-                DSACourse.setGradeById(id, DSACourse.getGradeById(id) + javaScore);
-            } else {
-                DSACourse.setGradeById(id, javaScore);
-            }
-
-            if (DatabasesCourse.studentsGradesMap.containsKey(id)) {
-                DatabasesCourse.setGradeById(id, DatabasesCourse.getGradeById(id) + javaScore);
-            } else {
-                DatabasesCourse.setGradeById(id, javaScore);
-            }
-
-            if (SpringCourse.studentsGradesMap.containsKey(id)) {
-                SpringCourse.setGradeById(id, SpringCourse.getGradeById(id) + javaScore);
-            } else {
-                SpringCourse.setGradeById(id, javaScore);
-            }
-
             System.out.println("Points updated");
             addPoints();
         }
@@ -146,8 +147,8 @@ public class Menu {
             findStudent();
         }
         if (id > 0 && id < Student.getNextId()) {
-            System.out.printf("%d points: Java=%d; DSA=%d; Databases=%d; Spring=%d\n", id, JavaCourse.getGradeById(id),
-                    DSACourse.getGradeById(id), DatabasesCourse.getGradeById(id), SpringCourse.getGradeById(id));
+            System.out.printf("%d points: Java=%d; DSA=%d; Databases=%d; Spring=%d\n", id, javaCourse.getGradeById(id),
+                    dsaCourse.getGradeById(id), databasesCourse.getGradeById(id), springCourse.getGradeById(id));
             findStudent();
         } else {
             System.out.printf("No student is found for id=%d\n", id);
