@@ -13,6 +13,8 @@ public class Menu {
     public static DatabasesCourse databasesCourse = DatabasesCourse.getInstance();
     public static DSACourse dsaCourse = DSACourse.getInstance();
 
+    public static Notifier notifier = Notifier.getInstance();
+
     static ArrayList<Course> courseArrayList = new ArrayList<>(Arrays.asList(javaCourse, springCourse, databasesCourse, dsaCourse));
 
     public static void start() {
@@ -62,6 +64,9 @@ public class Menu {
 
             }
             statistics();
+        } else if (command.equals("notify")) {
+            notifier.notifyStudents();
+            start();
         } else {
             System.out.println("Unknown command!");
             start();

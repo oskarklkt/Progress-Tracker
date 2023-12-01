@@ -1,5 +1,6 @@
 package tracker;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public abstract class Course {
@@ -24,4 +25,6 @@ public abstract class Course {
     public abstract String getName();
 
     public abstract void printBestStudents();
+
+    public abstract ArrayList<Integer> getIdsOfStudentsToNotify();
 }

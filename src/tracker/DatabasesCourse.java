@@ -2,6 +2,7 @@ package tracker;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Stream;
@@ -24,6 +25,7 @@ public class DatabasesCourse extends Course {
     private DatabasesCourse() {
         this.studentsGradesMap = new HashMap<>();
         tasksDone = 0;
+        this.alreadyNotified = new ArrayList<>();
         pointsScored = 0;
     }
 
@@ -71,6 +73,7 @@ public class DatabasesCourse extends Course {
     public void incrementPointsScored(int score) {
         this.pointsScored += score;
     }
+    private ArrayList<Integer> alreadyNotified;
 
     @Override
     public double getAverageGrade() {
@@ -92,5 +95,17 @@ public class DatabasesCourse extends Course {
     public void printEntry(Map.Entry<Integer, Integer> entry) {
         System.out.printf("%d\t%d\t\t%.1f", entry.getKey(), entry.getValue(), new BigDecimal((double) entry.getValue()/MAX_POINTS).setScale(3, RoundingMode.HALF_UP).scaleByPowerOfTen(2));
         System.out.println("%");
+    }
+
+    public ArrayList<Integer> getIdsOfStudentsToNotify() {
+        ArrayList<Integer> result = new ArrayList<>();
+        for (Integer id : getStudentsGradesMap().keySet()) {
+            if (getStudentsGradesMap().get(id) == MAX_POINTS && !alreadyNotified.contains(id)) {
+                result.add(id);
+                alreadyNotified.add(id);
+            }
+
+        }
+        return result;
     }
 }

@@ -8,6 +8,8 @@ public class Student {
     private static int nextId = 1;
     private static HashMap<Integer, String> usedEmails = new HashMap<>();
     private static ArrayList<Student> studentList = new ArrayList<>();
+
+    private static HashMap<Integer, Student> studentMap = new HashMap<>();
     private final int studentId;
     private final String firstName;
     private final String lastName;
@@ -20,8 +22,11 @@ public class Student {
         this.email = email;
         studentList.add(this);
         usedEmails.put(studentId, email);
+        studentMap.put(studentId, this);
         nextId++;
     }
+
+
 
     public static int getNextId() {
         return nextId;
@@ -37,6 +42,10 @@ public class Student {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public static HashMap<Integer, Student> getStudentMap() {
+        return studentMap;
     }
 
     public String getEmail() {
@@ -60,5 +69,9 @@ public class Student {
         studentList.stream()
                 .sorted(Comparator.comparing(Student::getStudentId))
                 .forEach(Student::printId);
+    }
+
+    public static Student getStudentById(int id) {
+       return getStudentMap().get(id);
     }
 }
