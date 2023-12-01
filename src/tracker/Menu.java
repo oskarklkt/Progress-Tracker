@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Menu {
+    public static StatisticsPrinter statisticsPrinter = StatisticsPrinter.getInstance();
+    public static StatisticsTracker statisticsTracker = StatisticsTracker.getInstance();
 
     public static JavaCourse javaCourse = JavaCourse.getInstance();
     public static SpringCourse springCourse = SpringCourse.getInstance();
@@ -42,6 +44,24 @@ public class Menu {
         } else if (command.equals("find")) {
             System.out.println("Enter an id and points or 'back' to return");
             findStudent();
+        } else if (command.equals("statistics")) {
+            System.out.println("Type the name of a course to see details or 'back' to quit:");
+            if (!statisticsPrinter.emptyPrinter()) {
+                System.out.print("Most popular: ");
+                System.out.println(statisticsPrinter.printStatistics(statisticsTracker.getMostPopularCourses()));
+                System.out.print("Least popular: ");
+                System.out.println(statisticsPrinter.printStatistics(statisticsTracker.getLeastPopularCourses()));
+                System.out.print("Highest activity: ");
+                System.out.println(statisticsPrinter.printStatistics(statisticsTracker.getCoursesWithHighestActivity()));
+                System.out.print("Lowest activity: ");
+                System.out.println(statisticsPrinter.printStatistics(statisticsTracker.getCoursesWithLowestActivity()));
+                System.out.print("Easiest course: ");
+                System.out.println(statisticsPrinter.printStatistics(statisticsTracker.getEasiestCourses()));
+                System.out.print("Hardest course: ");
+                System.out.println(statisticsPrinter.printStatistics(statisticsTracker.getHardestCourses()));
+
+            }
+            statistics();
         } else {
             System.out.println("Unknown command!");
             start();
@@ -160,5 +180,39 @@ public class Menu {
         }
     }
 
+    public static void statistics() {
+
+
+        Scanner scanner = new Scanner(System.in);
+        String command = scanner.nextLine();
+        if (command.toLowerCase().equals("back")) {
+            start();
+        } else if (command.toLowerCase().equals("java")) {
+            System.out.println("Java");
+            System.out.println("id\tpoints\tcompleted");
+            javaCourse.printBestStudents();
+            statistics();
+        } else if (command.toLowerCase().equals("spring")) {
+            System.out.println("Spring");
+            System.out.println("id\tpoints\tcompleted");
+            springCourse.printBestStudents();
+            statistics();
+        } else if (command.toLowerCase().equals("dsa")) {
+            System.out.println("DSA");
+            System.out.println("id\tpoints\tcompleted");
+            dsaCourse.printBestStudents();
+            statistics();
+        } else if (command.toLowerCase().equals("databases")) {
+            System.out.println("Databases");
+            System.out.println("id\tpoints\tcompleted");
+            databasesCourse.printBestStudents();
+            statistics();
+        } else {
+            System.out.println("Unknown course.");
+            statistics();
+        }
+    }
 
 }
+
+

@@ -1,8 +1,16 @@
 package tracker;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
+
+import static java.util.Map.Entry.comparingByKey;
 
 public class DSACourse extends Course{
+
+    private String name = "DSA";
 
     private int pointsScored;
 
@@ -68,5 +76,24 @@ public class DSACourse extends Course{
     public double getAverageGrade() {
         return (double) pointsScored/tasksDone;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public void printBestStudents() {
+        Stream<Map.Entry<Integer, Integer>> sorted = studentsGradesMap.entrySet().stream()
+                .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed().thenComparing(comparingByKey()))
+                .filter((e) -> e.getValue() != 0);
+        sorted.forEach(this::printEntry);
+    }
+
+    public void printEntry(Map.Entry<Integer, Integer> entry) {
+        System.out.printf("%d\t%d\t\t%.1f", entry.getKey(), entry.getValue(), new BigDecimal((double) entry.getValue()/MAX_POINTS).setScale(3, RoundingMode.HALF_UP).scaleByPowerOfTen(2));
+        System.out.println("%");
+    }
+
+
 
 }
