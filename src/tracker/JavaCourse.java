@@ -3,12 +3,20 @@ package tracker;
 import java.util.HashMap;
 
 public class JavaCourse extends Course {
+
+    private int pointsScored;
+
+    private int tasksDone;
+
+    int MAX_POINTS = 600;
     private HashMap<Integer, Integer> studentsGradesMap;
 
     private static JavaCourse instance;
 
     private JavaCourse() {
         this.studentsGradesMap = new HashMap<>();
+        this.tasksDone = 0;
+        pointsScored = 0;
     }
 
     public static JavaCourse getInstance() {
@@ -30,5 +38,36 @@ public class JavaCourse extends Course {
 
     public HashMap<Integer, Integer> getStudentsGradesMap() {
         return studentsGradesMap;
+    }
+
+    @Override
+    public int getEnrolledStudents() {
+        return getStudentsGradesMap().size();
+    }
+
+    @Override
+    public void incrementTaskDone() {
+        this.tasksDone++;
+    }
+
+    @Override
+    public int getTaskDone() {
+        return tasksDone;
+    }
+
+
+
+    public int getPointsScored() {
+        return pointsScored;
+    }
+
+    @Override
+    public void incrementPointsScored(int score) {
+        this.pointsScored += score;
+    }
+
+    @Override
+    public double getAverageGrade() {
+        return (double) pointsScored/tasksDone;
     }
 }

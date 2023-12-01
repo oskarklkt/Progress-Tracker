@@ -124,8 +124,12 @@ public class Menu {
                 }
                 if (course.getStudentsGradesMap().containsKey(id)) {
                     course.setGradeById(id, course.getGradeById(id) + score);
+                    course.incrementTaskDone();
+                    course.incrementPointsScored(score);
                 } else {
                     course.setGradeById(id, score);
+                    course.incrementTaskDone();
+                    course.incrementPointsScored(score);
                 }
             }
             System.out.println("Points updated");

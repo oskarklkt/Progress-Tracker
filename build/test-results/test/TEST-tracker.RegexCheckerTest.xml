@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="tracker.RegexCheckerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-11-28T16:59:19" hostname="DESKTOP-2690O6K" time="0.032">
+<testsuite name="tracker.RegexCheckerTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2023-11-28T21:25:50" hostname="DESKTOP-2690O6K" time="0.021">
   <properties/>
-  <testcase name="VanDerSaarShouldReturnTrue()" classname="tracker.RegexCheckerTest" time="0.023"/>
+  <testcase name="VanDerSaarShouldReturnTrue()" classname="tracker.RegexCheckerTest" time="0.013"/>
   <testcase name="oskarShouldReturnTrue()" classname="tracker.RegexCheckerTest" time="0.001"/>
   <testcase name="maryj@google.com should return true" classname="tracker.RegexCheckerTest" time="0.001"/>
   <testcase name="JeanClaudeShouldReturnTrue()" classname="tracker.RegexCheckerTest" time="0.001"/>
   <testcase name="ONeillShouldReturnTrue()" classname="tracker.RegexCheckerTest" time="0.0"/>
   <testcase name="NowakShouldReturnTrue()" classname="tracker.RegexCheckerTest" time="0.0"/>
-  <testcase name="MarcinShouldReturnTrue()" classname="tracker.RegexCheckerTest" time="0.0"/>
+  <testcase name="MarcinShouldReturnTrue()" classname="tracker.RegexCheckerTest" time="0.001"/>
   <testcase name="jc@google.it should return true" classname="tracker.RegexCheckerTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
